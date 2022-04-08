@@ -2,7 +2,7 @@
 
 An Inkplate 10 (9.7") e-ink display for viewing sensors data from Home Assistant. The firmware is based on ESPHome. I borrowed heavily from I take inspiration **Sainz's** [excellent code](https://github.com/sainz/Home-Assistant-e-Ink-Display) and therefore also from from <b>MaxMac_STN</b>'s work (https://github.com/maxmacstn/HA-ePaper-Display).
 
-![header](https://github.com/sainz/Home-Assistant-e-Ink-Display/blob/master/images/PXL_20220108_093319359.jpg?raw=true)
+![header](images/IMG_1315.jpg?raw=true)
 
 
 ### Hardware
@@ -12,6 +12,6 @@ I printed the frame for the case from the provided designs on the [Inkplate 10 G
 
 ### Installation
 - You need an Home Assistant installation with ESPHome add-on installed;
-- I moved around a lot of the text sensors, but some remain from Sainz's code. The sensors.yaml file is linked to configuration.yaml of Home Assistant installation. You must adapt it based on your sensors data;
-- Copy fonts folder on your ESPHome folder
+- I moved around a lot of the text sensors, but some remain from Sainz's code. The [sensors.yaml](sensors.yaml) file is linked to configuration.yaml of Home Assistant installation. You must adapt it based on your sensors data;
+- Copy [fonts](esphome/fonts) folder on your ESPHome folder
 - After connect all the hardware together, link it to Home Assistant and flash the firmware (epaper-display.yaml). This is my personal configuration, so you must adaopt based on your Home Assistant configuration and sensors data.

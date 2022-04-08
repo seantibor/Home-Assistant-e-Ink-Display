@@ -1,3 +1,5 @@
+### Add these to Home Assistant if you don't have them already
+
 #=========================
 #=== Moon Phases
 #=========================
@@ -11,33 +13,18 @@
     weather_now:
       friendly_name: "Weather Now"
       value_template: >-
-        {{ states.weather.casa.state }};{{ states.weather.casa.attributes.temperature | round(0) }}°C
+        {{ states.weather.home.state }};{{ states.weather.home.attributes.temperature | round(0) }}°F
     weather_fivedays:
       friendly_name: "Five day weather"
       value_template: >-
-        {% set days = {'Mon':'Lun','Tue':'Mar','Wed':'Mer','Thu':'Gio','Fri':'Ven','Sat':'Sab','Sun':'Dom'} %}
-        {% for state in states.weather.casa.attributes.forecast[0:3] -%}
-          {{ days[as_timestamp(state.datetime)| timestamp_custom("%a")] }};{{state.templow}}/{{ state.temperature }}°C;{{ state.condition }}#
+        {% for state in states.weather.home.attributes.forecast[0:3] -%}
+          {{ as_timestamp(state.datetime)| timestamp_custom("%a") }};{{state.templow}}/{{ state.temperature }}°F;{{ state.condition }}#
         {%- endfor %}
     temperature_rooms:
       friendly_name: "Temperature Rooms"
       value_template: >-
-        {{ states.sensor.atc_temperature_bagno_sopra.state }}°C;{{ states.sensor.atc_temperature_bagno_sotto.state }}°C;{{ states.sensor.atc_temperature_cameretta.state }}°C;{{ states.sensor.atc_temperature_cucina.state }}°C;{{ states.sensor.atc_temperature_letto.state }}°C;{{ states.sensor.atc_temperature_studio.state }}°C;{{ states.sensor.salotto_temperature.state | float | round(1) }}°C;{{ states.sensor.mansarda_temperature.state | float | round(1) }}°C;
-    particulate_data:
-      friendly_name: "PM Data Sensors"
+        {{ states.sensor.garage_enviro_temperature.state }}°F;{{ states.sensor.living_room_temperature.state }}°F;{{ states.sensor.master_bedroom_temperature.state }}°F;{{ states.sensor.kaden_enviro_temperature.state }}°F;{{ states.sensor.master_bathroom_temperature.state }}°F;{{ states.sensor.guest_bath_temperature.state }}°F;{{ states.sensor.intake_temperature.state }}°F;{{ states.sensor.air_temperature.state }}°F;
+    fl_weather:
+      friendly_name: "Weather + Days"
       value_template: >-
-        {{ states.sensor.particulate_matter_10_0um_concentration.state }}µg/m³
-    it_days:
-      friendly_name: "Translated Days"
-      value_template: >-
-        {% set daysIt = ["Lunedì", "Martedì","Mercoledì","Giovedì","Venerdì","Sabato","Domenica"] %}
-        {{ daysIt[now().weekday()] }}
-    it_months:
-      friendly_name: "Translated Months"
-      value_template: >-
-        {% set monthsIt = ["Gennaio", "Febbraio","Marzo","Aprile","Maggio","Giugno","Luglio","Agosto","Settembre","Ottobre","Novembre","Dicembre"] %}
-        {{ monthsIt[now().month - 1] }}
-    it_weather:
-      friendly_name: "Weather + Translated Days"
-      value_template: >-
-        {{ states.sensor.it_days.state }};{{ states.sensor.weather_now.state }};{{ states.sensor.it_months.state }};
+        {{ now().strftime("%A") }};{{ states.sensor.weather_now.state }};{{ now().strftime("%B %-d") }};
